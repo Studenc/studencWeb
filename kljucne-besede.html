@@ -6,18 +6,28 @@
         <link rel="stylesheet" href="index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-            var keywords = {}
+            var keywords = []
             $(document).ready(function() {
-                $.ajax({
-                    url: "http://localhost:6969/keywords",
-                    success: function(data) {
-                        Object.keys(data).forEach(function(key){
-                            $("#tabelabesedbody").append("<tr><th>"+key+"</th><th>"+data[key]+"</th></tr>")
-                        })
-                    },
-                })
                 $('#add').click(function(){
-                    keywords.word = $("#besedainput").val()
+                    var temp = {}
+                    word = $("#besedainput").val()
+                    let kwd = keywords.find(o => o.word === word)
+                    if (typeof kwd === 'undefined') {
+                        color = $("#colorselector").val()
+                        temp["word"] = word
+                        temp["color"] = color
+                        keywords.push(temp)
+                        //request all keyword data and display it
+                        $.ajax({
+                            url: "http://localhost:6969/keywordhits",
+                            data: {word: temp.word},
+                            success: function(data) {
+                                $("#tabelabesedbody").append("<tr style='color:"+temp.color+"'><th>"+temp.word+"</th><th>"+data["total"]+"</th></tr>")
+                            },
+                        })
+                    } else {
+                        alert("Ta beseda že obstaja!")
+                    }
                 });
             })
         </script>
@@ -39,7 +49,6 @@
                   </tr>
                 </thead>
             </table>
-            
         </div>
         <br>
         <div id="dodajbesede">
@@ -52,6 +61,14 @@
                     <option value="red">RDEČA</option>
                     <option value="blue">MODRA</option>
                     <option value="green">ZELENA</option>
+                    <option value="chocolate">RJAVA</option>
+                    <option value="violet">VIJOLIČNA</option>
+                    <option value="orange">ORANŽNA</option>
+                    <option value="deeppink">ROZA</option>
+                    <option value="yellow">RUMENA</option>
+                    <option value="magenta">MAGENTA</option>
+                    <option value="indigo">INDIGO</option>
+                    <option value="aqua">AQUA</option>
                 </select>
                 <button id="add">DODAJ</button>
             </div>
