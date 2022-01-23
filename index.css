@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
+body {
+    color: #0066FF;
+    background-color: #303030;
+    font-family: "Roboto Mono";
+}
+
+h2, h4 {
+    text-align: center;
+}
+
+.header {
+    background-color: #0bef13;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.footer {
+    background-color: #303030;
+    min-height: 100px;
+}
+
+#jobs {
+    background-color: #191919;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.job {
+    color: #ffffff;
+    background-color: #282828;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.job h6 {
+    text-align: center;
+}
+
+.job p {
+    font-size: small;
+    text-align: center;
+}
+
+.job .id {
+    font-size: 7px;
+}
