@@ -6,8 +6,15 @@ body {
     font-family: "Roboto Mono";
 }
 
+img {
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+}
+
 h2, h4 {
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
 }
 
 .header {
