@@ -5,9 +5,29 @@
         <link rel="icon" href="icon.png">
         <link rel="stylesheet" href="index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
         <script type="text/javascript">
             var keywords = []
             $(document).ready(function() {
+                var graphdata = []
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme:"dark1",
+                    animationEnabled: true,
+                    title:{
+                        text: "Popularnost ključnih besed"
+                    },
+                    axisY :{
+                        title: "Število zadetkov",
+                    },
+                    toolTip: {
+                        shared: "true"
+                    },
+                    legend:{
+                        cursor:"pointer",
+                    },
+                    data: graphdata
+                });
+                chart.render();
                 $('#add').click(function(){
                     var temp = {}
                     word = $("#besedainput").val()
@@ -23,6 +43,23 @@
                             data: {word: temp.word},
                             success: function(data) {
                                 $("#tabelabesedbody").append("<tr style='color:"+temp.color+"'><th>"+temp.word+"</th><th>"+data["total"]+"</th></tr>")
+                                var tempData = {}
+                                tempData.type = "spline"
+                                tempData.showInLegend = true
+                                tempData.visible = true
+                                tempData.name = temp.word
+                                tempDataPoints = []
+                                tempData.color = temp.color
+                                delete data["total"]
+                                for (date in data) {
+                                    tmpdp = {}
+                                    tmpdp.label = date
+                                    tmpdp.y = data[date]
+                                    tempDataPoints.push(tmpdp)
+                                }
+                                tempData.dataPoints = tempDataPoints
+                                graphdata.push(tempData)
+                                chart.render()
                             },
                         })
                     } else {
@@ -86,6 +123,10 @@
 
                 </tbody>
             </table>
+        </div>
+        <br>
+        <div id="charts">
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
         </div>
         <div class="footer"></div>
     </body>
