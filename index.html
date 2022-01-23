@@ -14,6 +14,11 @@
                             $("#jobs").append("<div class='job'><h6>" + data["jobs"][i].title + "</h6><p class='pay'>pay: "+ data["jobs"][i].pay +"€</p><p class='description'>"+ data["jobs"][i].description +"</p><p class='id'>id: " + data["jobs"][i].jobId + "</p></div><br>");
                         }
                     },
+                    complete: function() {
+                        if (!$('#jobs').is(':parent')) {
+                            $("#jobs").append("<div class='job'><h6>NO JOBS AVAILABLE</h6></div>")
+                        }
+                    }
                 })
             })
         </script>
@@ -23,7 +28,7 @@
             <table>
                 <thead>
                   <tr>
-                    <td><img src="icon.png" height="128px"></img></td>
+                    <td><a href="/"><img src="icon.png" height="128px"></img></a></td>
                     <td>
                         <div class="header-titles">
                             <h2><strong>DOBRODOŠLI PRI STUDENCU</strong></h2>
@@ -35,7 +40,6 @@
                   </tr>
                 </thead>
             </table>
-            
         </div>
         <br>
         <div id="jobs">

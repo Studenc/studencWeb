@@ -68,12 +68,54 @@ a{
      color: blue;
  }
 
- #besede {
+ #besede, #dodajbesede {
     background-color: #191919;
     padding: 10px;
     border-radius: 10px;
+    min-height: 30px;
 }
 
 .tabelabesed{
     width: 100%;
+}
+
+.title {
+    text-align: center;
+    font-size: large;
+}
+
+.wordinputform {
+    background-color: #282828;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.inputshit{
+    margin: 3px;
+    display: inline;
+}
+
+input {
+    background-color: #191919;
+    color: #008cff;
+    border-radius: 5px;
+    border-color: #008cff;
+    padding: 3px;
+}
+
+select {
+    background-color: #191919;
+    color: #008cff;
+    border-radius: 5px;
+    border-color: #008cff;
+    padding: 3px;
+}
+
+#add {
+    background-color: #191919;
+    color: #008cff;
+    border-radius: 5px;
+    border-color: #008cff;
+    padding: 3px;
 }

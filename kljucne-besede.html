@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
+            var keywords = {}
             $(document).ready(function() {
                 $.ajax({
                     url: "http://localhost:6969/keywords",
@@ -15,6 +16,9 @@
                         })
                     },
                 })
+                $('#add').click(function(){
+                    keywords.word = $("#besedainput").val()
+                });
             })
         </script>
     </head>
@@ -23,7 +27,7 @@
             <table>
                 <thead>
                   <tr>
-                    <td><img src="icon.png" height="128px"></img></td>
+                    <td><a href="/"><img src="icon.png" height="128px"></img></a></td>
                     <td>
                         <div class="header-titles">
                             <h2><strong>DOBRODOŠLI PRI STUDENCU</strong></h2>
@@ -36,6 +40,21 @@
                 </thead>
             </table>
             
+        </div>
+        <br>
+        <div id="dodajbesede">
+            <p class="title">DODAJ KLJUČNE BESEDE</p>
+            <div class="wordinputform">
+                <p class="inputshit">BESEDA:</p>
+                <input class="inputshit" type="text" id="besedainput">
+                <p class="inputshit">BARVA:</p>
+                <select name="BARVE" id="colorselector">
+                    <option value="red">RDEČA</option>
+                    <option value="blue">MODRA</option>
+                    <option value="green">ZELENA</option>
+                </select>
+                <button id="add">DODAJ</button>
+            </div>
         </div>
         <br>
         <div id="besede">
