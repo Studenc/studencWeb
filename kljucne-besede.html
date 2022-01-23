@@ -8,11 +8,11 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $.ajax({
-                    url: "http://localhost:6969/jobs",
+                    url: "http://localhost:6969/keywords",
                     success: function(data) {
-                        for (i in data["jobs"]) {
-                            $("#jobs").append("<div class='job'><h6>" + data["jobs"][i].title + "</h6><p class='pay'>pay: "+ data["jobs"][i].pay +"€</p><p class='description'>"+ data["jobs"][i].description +"</p><p class='id'>id: " + data["jobs"][i].jobId + "</p></div><br>");
-                        }
+                        Object.keys(data).forEach(function(key){
+                            $("#tabelabesedbody").append("<tr><th>"+key+"</th><th>"+data[key]+"</th></tr>")
+                        })
                     },
                 })
             })
@@ -38,7 +38,18 @@
             
         </div>
         <br>
-        <div id="jobs">
+        <div id="besede">
+            <table class="tabelabesed" id="tabelabesed">
+                <thead>
+                    <tr>
+                        <th>BESEDA</th>
+                        <th>ŠTEVILO ZADETKOV</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelabesedbody">
+
+                </tbody>
+            </table>
         </div>
         <div class="footer"></div>
     </body>
