@@ -73,6 +73,7 @@ a{
     padding: 10px;
     border-radius: 10px;
     min-height: 30px;
+    text-align: center;
 }
 
 .tabelabesed{
@@ -125,4 +126,5 @@ select {
     background-color: #191919;
     padding: 10px;
     border-radius: 10px;
+    text-align: center;
 }

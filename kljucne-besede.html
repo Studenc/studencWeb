@@ -5,27 +5,50 @@
         <link rel="icon" href="icon.png">
         <link rel="stylesheet" href="index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script type="text/javascript">
             var keywords = []
             $(document).ready(function() {
+                var xlabels = []
                 var graphdata = []
-                var chart = new CanvasJS.Chart("chartContainer", {
-                    theme:"dark1",
-                    animationEnabled: true,
-                    title:{
-                        text: "Popularnost ključnih besed"
+                var chart = new Chart("myChart", {
+                    type: "line",
+                    data: {
+                        ylabels: xlabels,
+                        datasets: graphdata
                     },
-                    axisY :{
-                        title: "Število zadetkov",
-                    },
-                    toolTip: {
-                        shared: "true"
-                    },
-                    legend:{
-                        cursor:"pointer",
-                    },
-                    data: graphdata
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            position: "top",
+                            text: "GRAF",
+                            fontSize: 18,
+                            fontColor: "#008cff"
+                        },
+                        legend: {
+                            display: true,
+                            position: "top",
+                            labels: {
+                                fontColor: "#333",
+                                fontSize: 16
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Število zadetkov'
+                            },
+                            xAxes: [{
+                                type: "time"
+                            }],
+                            ticks: {
+                                beginAtZero: true   
+                            }
+                            }]
+                        }
+                    }
                 });
                 chart.render();
                 $('#add').click(function(){
@@ -44,22 +67,21 @@
                             success: function(data) {
                                 $("#tabelabesedbody").append("<tr style='color:"+temp.color+"'><th>"+temp.word+"</th><th>"+data["total"]+"</th></tr>")
                                 var tempData = {}
-                                tempData.type = "spline"
-                                tempData.showInLegend = true
-                                tempData.visible = true
-                                tempData.name = temp.word
+                                tempData.label = temp.word
                                 tempDataPoints = []
-                                tempData.color = temp.color
+                                tempData.borderColor = temp.color
+                                tempData.fill = false
                                 delete data["total"]
                                 for (date in data) {
                                     tmpdp = {}
-                                    tmpdp.label = date
+                                    tmpdp.t = date
                                     tmpdp.y = data[date]
                                     tempDataPoints.push(tmpdp)
+                                    xlabels.push(date)
                                 }
-                                tempData.dataPoints = tempDataPoints
+                                tempData.data = tempDataPoints
                                 graphdata.push(tempData)
-                                chart.render()
+                                chart.update()
                             },
                         })
                     } else {
@@ -126,7 +148,7 @@
         </div>
         <br>
         <div id="charts">
-            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+            <canvas id="myChart" style="width:100%"></canvas>
         </div>
         <div class="footer"></div>
     </body>
