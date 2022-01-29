@@ -3,16 +3,28 @@
     <head>
         <meta charset="utf-8"/>
         <title>Studenc</title>
-        <link rel="icon" href="icon.png">
-        <link rel="stylesheet" href="index.css">
+        <link rel="icon" href="../assets/icon.png">
+        <link rel="stylesheet" href="../assets/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script type="text/javascript">
             var keywords = []
             $(document).ready(function() {
+                $.ajax({
+                    //url: "http://dev.local:6969/jobstats",
+                    url: "http://localhost:6969/jobstats",
+                    success: function(data) {
+                        $("#stsluzbAT").html("ŠTEVILO SLUŽB V DATABAZI: " + data.numberOfJobsAT)
+                        $("#avgpayAT").html("POVPREČNA PLAČA(ves čas): " + parseFloat(data.averagePayAT).toFixed(2) + " €/h")
+                        $("#maxpayAT").html("NAJVIŠJA PLAČA(ves čas): " + data.highestPayAT + " €/h")
+                        $("#curstsluzb").html("ŠTEVILO TRENUTNIH SLUŽB: " + data.currentNumberOfJobs)
+                        $("#curavgpay").html("POVPREČNA PLAČA: " + parseFloat(data.currentAveragePay).toFixed(2) + " €/h")
+                        $("#curmaxpay").html("NAJVIŠJA PLAČA: " + data.currentHighestPay + " €/h")
+                    },
+                })
                 var xlabels = []
                 var graphdata = []
-                var chart = new Chart("myChart", {
+                var chartKB = new Chart("myChart", {
                     type: "line",
                     data: {
                         ylabels: xlabels,
@@ -23,7 +35,7 @@
                         title: {
                             display: true,
                             position: "top",
-                            text: "GRAF",
+                            text: "GRAF KLJUČNIH BESED",
                             fontSize: 18,
                             fontColor: "#008cff"
                         },
@@ -51,7 +63,7 @@
                         }
                     }
                 });
-                chart.render();
+                chartKB.render();
                 $('#add').click(function(){
                     var temp = {}
                     word = $("#besedainput").val()
@@ -63,6 +75,7 @@
                         keywords.push(temp)
                         //request all keyword data and display it
                         $.ajax({
+                            //url: "http://dev.local:6969/keywordhits",
                             url: "http://localhost:6969/keywordhits",
                             data: {word: temp.word},
                             success: function(data) {
@@ -82,7 +95,7 @@
                                 }
                                 tempData.data = tempDataPoints
                                 graphdata.push(tempData)
-                                chart.update()
+                                chartKB.update()
                             },
                         })
                     } else {
@@ -97,18 +110,30 @@
             <table>
                 <thead>
                   <tr>
-                    <td><a href="/"><img src="icon.png" height="128px"></img></a></td>
+                    <td><a href="/"><img src="../assets/icon.png" height="128px"></img></a></td>
                     <td>
                         <div class="header-titles">
                             <h2><strong>DOBRODOŠLI PRI STUDENCU</strong></h2>
-                            <h4><strong>Web scraper za študentske programerske službe na <a href="https://www.studentski-servis.com/studenti">studentski-servis.com</a></strong></h4>
+                            <h4><strong>Web scraper za študentske in dijaške službe na <a href="https://www.studentski-servis.com/studenti">studentski-servis.com</a></strong></h4>
                             <h4 class="buttons"><a href="/">SLUŽBE</a></h4>
-                            <h4 class="buttons"><a href="/kljucne-besede.html">STATISTIKA KLJUČNIH BESED</a></h4>
+                            <h4 class="buttons"><a href="/statistika">STATISTIKA</a></h4>
                         </div>
                     </td>
                   </tr>
                 </thead>
             </table>
+        </div>
+        <br>
+        <div class="part">
+            <p class="title">STATISTIKA</p>
+            <div class="subpart">
+                <p class="datalabel" id="curstsluzb"></p>
+                <p class="datalabel" id="curavgpay"></p>
+                <p class="datalabel" id="curmaxpay"></p>
+                <p class="datalabel" id="stsluzbAT"></p>
+                <p class="datalabel" id="avgpayAT"></p>
+                <p class="datalabel" id="maxpayAT"></p>
+            </div>
         </div>
         <br>
         <div id="dodajbesede">

@@ -128,3 +128,23 @@ select {
     border-radius: 10px;
     text-align: center;
 }
+
+.part {
+    background-color: #191919;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.subpart {
+    background-color: #282828;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+.disclaimer {
+    text-align: center;
+    font-size: 9px;
+}

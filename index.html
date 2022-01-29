@@ -3,16 +3,21 @@
     <head>
         <meta charset="utf-8"/>
         <title>Studenc</title>
-        <link rel="icon" href="icon.png">
-        <link rel="stylesheet" href="index.css">
+        <link rel="icon" href="assets/icon.png">
+        <link rel="stylesheet" href="assets/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $.ajax({
-                    url: "http://localhost:6969/jobs",
+                    //url: "http://dev.local:6969/jobs",
+                    url: "http://127.0.0.1:6969/jobs",
                     success: function(data) {
+                        console.log(typeof data)
+                        data.jobs.sort(function(a,b) { 
+                            return new Date(a.date).getTime() - new Date(b.date).getTime() 
+                        });
                         for (i in data["jobs"]) {
-                            $("#jobs").append("<div class='job'><h6>" + data["jobs"][i].title + "</h6><p class='pay'>pay: "+ data["jobs"][i].pay +"€</p><p class='description'>"+ data["jobs"][i].description +"</p><p class='id'>id: " + data["jobs"][i].jobId + "</p></div><br>");
+                            $("#jobs").append("<div class='job'><h6>" + data["jobs"][i].title + "</h6><p class='pay'>pay: "+ data["jobs"][i].pay +"€</p><p class='description'>"+ data["jobs"][i].description +"</p><p class='id'>id: <a href='https://www.studentski-servis.com/studenti/prosta-dela?kljb="+data["jobs"][i].jobId+"'>" + data["jobs"][i].jobId + "</a></p></div><br>");
                         }
                     },
                     complete: function() {
@@ -29,13 +34,13 @@
             <table>
                 <thead>
                   <tr>
-                    <td><a href="/"><img src="icon.png" height="128px"></img></a></td>
+                    <td><a href="/"><img src="assets/icon.png" height="128px"></img></a></td>
                     <td>
                         <div class="header-titles">
                             <h2><strong>DOBRODOŠLI PRI STUDENCU</strong></h2>
-                            <h4><strong>Web scraper za študentske programerske službe na <a href="https://www.studentski-servis.com/studenti">studentski-servis.com</a></strong></h4>
+                            <h4><strong>Web scraper za študentske in dijaške službe na <a href="https://www.studentski-servis.com/studenti">studentski-servis.com</a></strong></h4>
                             <h4 class="buttons"><a href="/">SLUŽBE</a></h4>
-                            <h4 class="buttons"><a href="/kljucne-besede.html">STATISTIKA KLJUČNIH BESED</a></h4>
+                            <h4 class="buttons"><a href="/statistika">STATISTIKA</a></h4>
                         </div>
                     </td>
                   </tr>
