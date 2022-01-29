@@ -9,8 +9,8 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $.ajax({
-                    //url: "http://dev.local:6969/jobs",
-                    url: "http://127.0.0.1:6969/jobs",
+                    //url: "http://dev.local:6969/currentjobs",
+                    url: "http://127.0.0.1:6969/currentjobs",
                     success: function(data) {
                         console.log(typeof data)
                         data.jobs.sort(function(a,b) { 
