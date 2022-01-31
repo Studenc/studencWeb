@@ -86,10 +86,21 @@
                                 tempData.borderColor = temp.color
                                 tempData.fill = false
                                 delete data["total"]
-                                for (date in data) {
+                                data2 = {}
+                                for (job in data) {
+                                    console.log(job)
+                                    date = data[job].dateSpotted
+                                    hits = data[job].hits
+                                    if (!(date in data2)) {
+                                        data2[date] = 0
+                                    }
+                                    data2[date] += hits
+                                }
+                                console.log(data2)
+                                for (date in data2) {
                                     tmpdp = {}
                                     tmpdp.t = date
-                                    tmpdp.y = data[date]
+                                    tmpdp.y = data2[date]
                                     tempDataPoints.push(tmpdp)
                                     xlabels.push(date)
                                 }
